@@ -1,14 +1,23 @@
 import unittest
 import pyobf
+import sys
+from cStringIO import StringIO
 
 class PyObfSpec(unittest.TestCase):
+    def runCode(self, code):
+        old = sys.stdout
+        redirected_output = sys.stdout = StringIO()
+        exec(code)
+        sys.stdout = old
+        return redirected_output.getvalue()
+
     def setUp(self):
         pass
 
     def test_assignment(self):
-        string = "print 123"
+        string = "print '123'\nprint '456'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 1")
+        self.assertEqual(obf.simple(), "0 '1'\n0 '2'")
 
     def tearDown(self):
         pass

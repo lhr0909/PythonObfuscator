@@ -9,10 +9,8 @@ class Obfuscator:
         self.input_str = s
 
     def add_terminal(self, m):
-        print m.group(1)
         if m.group(1) not in self.words:
             self.words.append(m.group(1))
-        print len(self.words)
         return ""
         #return hex(len(self.words) - 1)[2:]
 
@@ -25,14 +23,13 @@ class Obfuscator:
         s = self.input_str.replace("\r\n", "\n").split("\n")
         for i in xrange(len(s)):
             line = s[i]
-            regex_terminal =  re.search(r"([A-Za-z0-9_.]*)", line)
+            regex_terminal =  re.search(r"([A-Za-z0-9_.]+)", line)
             while regex_terminal != None:
-                print line
-                line = re.sub(r"([A-Za-z0-9_.]*)", self.add_terminal, line, count=1)
-                regex_terminal = re.search(r"([A-Za-z0-9_.]*)", line)
+                line = re.sub(r"([A-Za-z0-9_.]+)", self.add_terminal, line, count=1)
+                regex_terminal = re.search(r"([A-Za-z0-9_.]+)", line)
             line = s[i]
             for word in self.words:
                 line = line.replace(word, hex(self.words.index(word))[2:])
             s[i] = line
-
+        self.output_lines = s[:]
         return "\n".join(s)
