@@ -17,7 +17,17 @@ class PyObfSpec(unittest.TestCase):
     def test_assignment(self):
         string = "print '123'\nprint '456'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 '1'\n0 '2'")
+        self.assertEqual(obf.simple(), "0 '1'\\n0 '2'")
+
+    def test_indent(self):
+        string = "def main():\n\tprint 'hi'"
+        obf = pyobf.Obfuscator(string)
+        self.assertEqual(obf.simple(), "0 1():\\n\\t2 '3'")
+
+    def test_indent_space(self):
+        string = "def main():\n    print 'hi'"
+        obf = pyobf.Obfuscator(string)
+        self.assertEqual(obf.simple(), "0 1():\\n\\t2 '3'")
 
     def tearDown(self):
         pass
