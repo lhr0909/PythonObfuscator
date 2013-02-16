@@ -68,12 +68,13 @@ class Obfuscator:
                 i += 1
                 continue
 
-            if wordLen > x and i != x:
+            if wordLen > x and i != x and self.words[i].lower() != self.words[x].lower():
                 temp = self.words[i]
-                self.words[i] = self.words[int("0x" + word, 16)]
-                self.words[int("0x" + word, 16)] = temp
+                self.words[i] = self.words[x]
+                self.words[x] = temp
                 i = 0
-            i += 1
+            else:
+                i += 1
 
         #replace words
         for i in xrange(len(s)):
