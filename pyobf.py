@@ -3,16 +3,21 @@ import re
 class Obfuscator:
     input_str = ""
     words = []
+    frequencies = []
     output_lines = []
 
     def __init__(self, s):
         self.input_str = s
         self.words = []
+        self.frequencies = []
         self.output_lines = []
 
     def add_terminal(self, m):
         if m.group(1) not in self.words:
             self.words.append(m.group(1))
+            self.frequencies.append(1)
+        else:
+            self.frequencies[self.words.index(m.group(1))] += 1
         return ""
         #return hex(len(self.words) - 1)[2:]
 
@@ -39,11 +44,20 @@ class Obfuscator:
             #replace quotes
             s[i] = s[i].replace("'", "\\'")
             s[i] = s[i].replace('"', '\\"')
-            #replace words
+            #add words
             regex_terminal =  re.search(r"([A-Za-z0-9_.]+)", line)
             while regex_terminal != None:
                 line = re.sub(r"([A-Za-z0-9_.]+)", self.add_terminal, line, count=1)
                 regex_terminal = re.search(r"([A-Za-z0-9_.]+)", line)
+
+        #sort words
+        self.words.sort(key=dict(zip(self.words, self.frequencies)).get)
+        self.frequencies = sorted(self.frequencies)
+        self.words.reverse()
+        self.frequencies.reverse()
+
+        #replace words
+        for i in xrange(len(s)):
             line = s[i]
             for word in self.words:
                 line = re.sub(r"\b" + word + r"\b", hex(self.words.index(word))[2:], line)

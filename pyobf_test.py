@@ -18,17 +18,17 @@ class PyObfSpec(unittest.TestCase):
     def test_assignment(self):
         string = "print '123'\nprint '456'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 \\'1\\'\\n0 \\'2\\'")
+        self.assertEqual(obf.simple(), "0 \\'2\\'\\n0 \\'1\\'")
 
     def test_indent(self):
         string = "def main():\n\tprint 'hi'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 1():\\n\\t2 \\'3\\'")
+        self.assertEqual(obf.simple(), "3 2():\\n\\t1 \\'0\\'")
 
     def test_indent_space(self):
         string = "def main():\n    print 'hi'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 1():\\n\\t2 \\'3\\'")
+        self.assertEqual(obf.simple(), "3 2():\\n\\t1 \\'0\\'")
 
     def test_build_simple(self):
         string = "print 'hello world'"
