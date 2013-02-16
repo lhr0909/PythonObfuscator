@@ -45,10 +45,10 @@ class Obfuscator:
             s[i] = s[i].replace("'", "\\'")
             s[i] = s[i].replace('"', '\\"')
             #add words
-            regex_terminal =  re.search(r"([A-Za-z0-9_.]+)", line)
+            regex_terminal =  re.search(r"([A-Za-z0-9_]+)", line)
             while regex_terminal != None:
-                line = re.sub(r"([A-Za-z0-9_.]+)", self.add_terminal, line, count=1)
-                regex_terminal = re.search(r"([A-Za-z0-9_.]+)", line)
+                line = re.sub(r"([A-Za-z0-9_]+)", self.add_terminal, line, count=1)
+                regex_terminal = re.search(r"([A-Za-z0-9_]+)", line)
 
         #sort words by frequencies
         self.words.sort(key=dict(zip(self.words, self.frequencies)).get)
