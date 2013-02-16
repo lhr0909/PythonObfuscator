@@ -5,6 +5,7 @@
 <body>
     <h1>Simon's Python Obfuscator</h1>
     <p>
+        Paste some python code below, then hit "Obfuscate!" <br />
         <form method="post" action="/">
             <textarea name="original" rows="10" cols="80">{{ original }}</textarea><br />
             <input type="submit" value="Obfuscate!" /><input type="reset" value="clear"><br />
@@ -13,6 +14,11 @@
     </p>
     {% if obfuscated != "" %}
     <p>Compression Ratio: {{ str(originalLen)  + " / " + str(obfLen) + " = " + str(float(originalLen) / float(obfLen)) }}</p>
+    <p><a href="http://ideone.com" target="_blank">Run the code on ideoone.com!</a></p>
+    <p>Check out and fork the code at <a href="https://github.com/lhr0909/PythonObfuscator" target="_blank">GitHub</a>!</p>
+    <p>If your code will not run after obfuscating, please help me improve by <a href="https://github.com/lhr0909/PythonObfuscator/issues" target="_blank">submitting that original script onto my GitHub issue tracker</a>. All the help is appreciated.</p>
     {% end %}
+    <p>Version: v0.1</p>
+    <p>Author: Simon Liang</p>
 </body>
 </html>
