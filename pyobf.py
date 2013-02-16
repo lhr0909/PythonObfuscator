@@ -36,6 +36,9 @@ class Obfuscator:
             if indent_size > 0:
                 line = s[i].replace(" " * indent_size, "(>)")
             s[i] = line
+            #replace quotes
+            s[i] = s[i].replace("'", "\\'")
+            s[i] = s[i].replace('"', '\\"')
             #replace words
             regex_terminal =  re.search(r"([A-Za-z0-9_.]+)", line)
             while regex_terminal != None:
@@ -56,6 +59,6 @@ class Obfuscator:
         return a string of obfuscated python script
         '''
         obf_str = self.simple()
-        word_str = "|".join(self.words)
+        words_str = "|".join(self.words)
 
-        return "exec('')"
+        return """exec('''import re\nexec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),"%s"))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))''')""" % (obf_str, words_str)

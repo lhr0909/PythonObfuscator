@@ -17,17 +17,24 @@ class PyObfSpec(unittest.TestCase):
     def test_assignment(self):
         string = "print '123'\nprint '456'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 '1'\\n0 '2'")
+        self.assertEqual(obf.simple(), "0 \\'1\\'\\n0 \\'2\\'")
 
     def test_indent(self):
         string = "def main():\n\tprint 'hi'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 1():\\n\\t2 '3'")
+        self.assertEqual(obf.simple(), "0 1():\\n\\t2 \\'3\\'")
 
     def test_indent_space(self):
         string = "def main():\n    print 'hi'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 1():\\n\\t2 '3'")
+        self.assertEqual(obf.simple(), "0 1():\\n\\t2 \\'3\\'")
+
+    def test_build_simple(self):
+        string = "print 'hello world'"
+        obf = pyobf.Obfuscator(string)
+        self.assertEqual(obf.build_simple(), 
+            """exec('''import re
+exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),"0 \\'1 2\\'"))(lambda a,b:b[int("0x"+a.group(1),16)],"print|hello|world".split("|")))''')""")
 
     def tearDown(self):
         pass
