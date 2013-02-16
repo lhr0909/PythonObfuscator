@@ -1,6 +1,7 @@
 import unittest
 import pyobf
 import sys
+import re
 from cStringIO import StringIO
 
 class PyObfSpec(unittest.TestCase):
@@ -9,7 +10,7 @@ class PyObfSpec(unittest.TestCase):
         redirected_output = sys.stdout = StringIO()
         exec(code)
         sys.stdout = old
-        return redirected_output.getvalue()
+        return redirected_output.getvalue().strip()
 
     def setUp(self):
         pass
@@ -32,9 +33,7 @@ class PyObfSpec(unittest.TestCase):
     def test_build_simple(self):
         string = "print 'hello world'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.build_simple(), 
-            """exec('''import re
-exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),"0 \\'1 2\\'"))(lambda a,b:b[int("0x"+a.group(1),16)],"print|hello|world".split("|")))''')""")
+        self.assertEqual(self.runCode(obf.build_simple()), "hello world")
 
     def tearDown(self):
         pass
