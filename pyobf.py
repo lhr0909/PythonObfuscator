@@ -46,7 +46,7 @@ class Obfuscator:
                 regex_terminal = re.search(r"([A-Za-z0-9_.]+)", line)
             line = s[i]
             for word in self.words:
-                line = line.replace(word, hex(self.words.index(word))[2:])
+                line = re.sub(r"\b" + word + r"\b", hex(self.words.index(word))[2:], line)
             s[i] = line
 
             s[i] = s[i].replace("(>)", "\\t")
