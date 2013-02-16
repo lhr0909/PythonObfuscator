@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>Simon's Python Obfuscator</title>
+</head>
+<body>
+    <h1>Simon's Python Obfuscator</h1>
+    <p>
+        <form method="post" action="/">
+            <textarea name="original" rows="10" cols="80"></textarea><br />
+            <input type="submit" value="Obfuscate!" /><input type="reset" value="clear"><br />
+            <textarea rows="10" cols="80">{{ obfuscated }}</textarea>
+        </form>
+    </p>
+    {% if obfuscated != "" %}
+    <p>Compression Ratio: {{ str(originalLen)  + " / " + str(obfLen) + " = " + str(float(originalLen) / float(obfLen)) }}</p>
+    {% end %}
+</body>
+</html>
