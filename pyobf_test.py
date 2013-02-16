@@ -35,6 +35,11 @@ class PyObfSpec(unittest.TestCase):
         obf = pyobf.Obfuscator(string)
         self.assertEqual(self.runCode(obf.build_simple()), "hello world")
 
+    def test_build_word(self):
+        string = 'print 1\nprint 2\nprint 3\nprint 2\nprint 1'
+        obf = pyobf.Obfuscator(string)
+        self.assertEqual(self.runCode(obf.build_simple()), "1\n2\n3\n2\n1")
+
     def tearDown(self):
         pass
 

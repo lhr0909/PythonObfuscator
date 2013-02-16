@@ -6,7 +6,7 @@
     <h1>Simon's Python Obfuscator</h1>
     <p>
         <form method="post" action="/">
-            <textarea name="original" rows="10" cols="80"></textarea><br />
+            <textarea name="original" rows="10" cols="80">{{ original }}</textarea><br />
             <input type="submit" value="Obfuscate!" /><input type="reset" value="clear"><br />
             <textarea rows="10" cols="80">{{ obfuscated }}</textarea>
         </form>

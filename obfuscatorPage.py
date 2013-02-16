@@ -5,13 +5,13 @@ from twisted.internet import reactor
 
 class IndexHandler(cyclone.web.RequestHandler):
     def get(self):
-        self.render("index.html", obfuscated="", originalLen=0, obfLen=0)
+        self.render("index.html", original="", obfuscated="", originalLen=0, obfLen=0)
 
     def post(self):
         string = self.get_argument("original", None)
         obf = pyobf.Obfuscator(string)
         obfuscated = obf.build_simple()
-        self.render("index.html", obfuscated=obfuscated, originalLen=len(string), obfLen=len(obfuscated))
+        self.render("index.html", original=string, obfuscated=obfuscated, originalLen=len(string), obfLen=len(obfuscated))
 
 
 class Application(cyclone.web.Application):
