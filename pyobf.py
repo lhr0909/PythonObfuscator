@@ -92,7 +92,7 @@ class Obfuscator:
         '''
         return a string of obfuscated python script
         '''
-        obf_str = self.simple().replace(chr(92), chr(92) * 2)
+        obf_str = self.simple()
         words_str = "|".join(self.words)
 
-        return """exec('''import re\\nexec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),"%s"))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))''')""" % (obf_str, words_str)
+        return r"""exec("import re");exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),"%s"))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))""" % (obf_str, words_str)
