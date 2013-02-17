@@ -30,6 +30,16 @@ class PyObfSpec(unittest.TestCase):
         obf = pyobf.Obfuscator(string)
         self.assertEqual(obf.simple(), "3 2():\\n\\t1 \\'0\\'")
 
+    def test_slash_quote(self):
+        string = "print \'\\\'"
+        obf = pyobf.Obfuscator(string)
+        self.assertEqual(obf.simple(), "0 \\'\\\\'")
+
+    def test_build_slash_quote(self):
+        string = "print \'\\\'"
+        obf = pyobf.Obfuscator(string)
+        self.assertEqual(self.runCode(obf.build_simple()), "\\")
+
     def test_build_simple(self):
         string = "print 'hello world'"
         obf = pyobf.Obfuscator(string)
@@ -44,6 +54,7 @@ class PyObfSpec(unittest.TestCase):
         string = open("pyobf.py", "r").read()
         obf = pyobf.Obfuscator(string)
         obf_str = obf.build_simple()
+        self.runCode(obf.build_simple())
         self.assertEqual(1, 1)
 
     def tearDown(self):
