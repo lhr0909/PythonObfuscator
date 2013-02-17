@@ -11,6 +11,7 @@ http://dean.edwards.name/packer/
 Changelog
 =========
 v0.2: changed the pack structure, still trying to fix the back slash problem.
+
 v0.1: Basic hack, lots of bugs, cannot even obfuscate itself, or obfuscated code.
 
 Author: Simon Liang
