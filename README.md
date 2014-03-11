@@ -1,6 +1,8 @@
 Simon's Python Obfuscator
 =========================
 
+[![Build Status](https://travis-ci.org/lhr0909/PythonObfuscator.png?branch=master)](https://travis-ci.org/lhr0909/PythonObfuscator)
+
 Try the obfuscator directly at: http://pyobf.herokuapp.com
 
 This open source obfuscator hopes to obfuscate python scripts and make the scripts unreadable / hard to decipher, since you can somehow retrieve the source code from de-compiling the Python bytecode.
