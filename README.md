@@ -13,6 +13,8 @@ http://dean.edwards.name/packer/
 Changelog
 =========
 
+Currently working on: Python 3 support! Currently code can only convert python 2 code (there are some weird issues that I have to solve in order to get python 3 code working, I may even create a new class for python 3).
+
 v0.3: Used base64 to fix the backslash issues! (Thanks @jihop for the idea) Should be able to obfuscate any code, including already obfuscated code, and even obfuscator itself.
 
 v0.2: changed the pack structure, still trying to fix the back slash problem.

@@ -32,15 +32,15 @@ class Obfuscator:
         indent_checked = False
         s = self.input_str.replace("\r\n", "\n").split("\n")
         for i in xrange(len(s)):
-            #check indentation
-            line = s[i].replace("\t", "(>)")
+            #check indentation (convert spaces to tabs)
+            line = s[i]
             if line.startswith(" ") and not indent_checked:
                 while line.startswith(" "):
                     line = line[1:]
                     indent_size += 1
                 indent_checked = True
             if indent_size > 0:
-                line = s[i].replace(" " * indent_size, "(>)")
+                line = s[i].replace(" " * indent_size, "\t")
             s[i] = line
             #add words
             regex_terminal =  re.search(r"([A-Za-z0-9_]+)", line)
@@ -80,8 +80,6 @@ class Obfuscator:
             for word in self.words:
                 line = re.sub(r"\b" + word + r"\b", hex(self.words.index(word))[2:], line)
             s[i] = line
-
-            s[i] = s[i].replace("(>)", "\t")
 
         self.output_lines = s[:]
         return base64.b64encode("\n".join(s))
