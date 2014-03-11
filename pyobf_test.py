@@ -2,6 +2,7 @@ import unittest
 import pyobf
 import sys
 import re
+import base64
 from cStringIO import StringIO
 
 class PyObfSpec(unittest.TestCase):
@@ -18,27 +19,17 @@ class PyObfSpec(unittest.TestCase):
     def test_assignment(self):
         string = "print '123'\nprint '456'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 \\'2\\'\\n0 \\'1\\'")
+        self.assertEqual(base64.b64decode(obf.simple()), "0 '2'\n0 '1'")
 
     def test_indent(self):
         string = "def main():\n\tprint 'hi'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "3 2():\\n\\t1 \\'0\\'")
+        self.assertEqual(base64.b64decode(obf.simple()), "3 2():\n\t1 '0'")
 
     def test_indent_space(self):
         string = "def main():\n    print 'hi'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "3 2():\\n\\t1 \\'0\\'")
-
-    def test_slash_quote(self):
-        string = "print \'\\\'"
-        obf = pyobf.Obfuscator(string)
-        self.assertEqual(obf.simple(), "0 \\'\\\\'")
-
-    def test_build_slash_quote(self):
-        string = "print \'\\\'"
-        obf = pyobf.Obfuscator(string)
-        self.assertEqual(self.runCode(obf.build_simple()), "\\")
+        self.assertEqual(base64.b64decode(obf.simple()), "3 2():\n\t1 '0'")
 
     def test_build_simple(self):
         string = "print 'hello world'"
@@ -50,14 +41,12 @@ class PyObfSpec(unittest.TestCase):
         obf = pyobf.Obfuscator(string)
         self.assertEqual(self.runCode(obf.build_simple()), "1\n2\n3\n2\n1")
 
-    '''
     def test_obf(self):
         string = open("pyobf.py", "r").read()
         obf = pyobf.Obfuscator(string)
         obf_str = obf.build_simple()
         self.runCode(obf.build_simple())
         self.assertEqual(1, 1)
-    '''
 
     def tearDown(self):
         pass

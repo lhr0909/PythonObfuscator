@@ -12,6 +12,8 @@ http://dean.edwards.name/packer/
 
 Changelog
 =========
+v0.3: Used base64 to fix the backslash issues! Should be able to obfuscate itself.
+
 v0.2: changed the pack structure, still trying to fix the back slash problem.
 
 v0.1: Basic hack, lots of bugs, cannot even obfuscate itself, or obfuscated code.

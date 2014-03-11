@@ -42,9 +42,6 @@ class Obfuscator:
             if indent_size > 0:
                 line = s[i].replace(" " * indent_size, "(>)")
             s[i] = line
-            # #replace quotes
-            # s[i] = s[i].replace("'", "\\'")
-            # s[i] = s[i].replace('"', '\\"')
             #add words
             regex_terminal =  re.search(r"([A-Za-z0-9_]+)", line)
             while regex_terminal != None:
