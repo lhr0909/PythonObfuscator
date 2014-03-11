@@ -87,7 +87,7 @@ class Obfuscator:
             s[i] = s[i].replace("(>)", "\t")
 
         self.output_lines = s[:]
-        return base64.base64encode("\n".join(s))
+        return base64.b64encode("\n".join(s))
 
     def build_simple(self):
         '''
@@ -96,4 +96,4 @@ class Obfuscator:
         obf_str = self.simple()
         words_str = "|".join(self.words)
 
-        return r"""exec("import re;import base64");exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),base64.base64decode("%s")))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))""" % (obf_str, words_str)
+        return r"""exec("import re;import base64");exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),base64.b64decode("%s")))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))""" % (obf_str, words_str)
