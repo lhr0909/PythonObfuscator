@@ -1,4 +1,5 @@
 import re
+import base64
 
 class Obfuscator:
     input_str = ""
@@ -41,9 +42,9 @@ class Obfuscator:
             if indent_size > 0:
                 line = s[i].replace(" " * indent_size, "(>)")
             s[i] = line
-            #replace quotes
-            s[i] = s[i].replace("'", "\\'")
-            s[i] = s[i].replace('"', '\\"')
+            # #replace quotes
+            # s[i] = s[i].replace("'", "\\'")
+            # s[i] = s[i].replace('"', '\\"')
             #add words
             regex_terminal =  re.search(r"([A-Za-z0-9_]+)", line)
             while regex_terminal != None:
@@ -83,10 +84,10 @@ class Obfuscator:
                 line = re.sub(r"\b" + word + r"\b", hex(self.words.index(word))[2:], line)
             s[i] = line
 
-            s[i] = s[i].replace("(>)", "\\t")
+            s[i] = s[i].replace("(>)", "\t")
 
         self.output_lines = s[:]
-        return "\\n".join(s)
+        return base64.base64encode("\n".join(s))
 
     def build_simple(self):
         '''
@@ -95,4 +96,4 @@ class Obfuscator:
         obf_str = self.simple()
         words_str = "|".join(self.words)
 
-        return r"""exec("import re");exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),"%s"))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))""" % (obf_str, words_str)
+        return r"""exec("import re;import base64");exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),base64.base64decode("%s")))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))""" % (obf_str, words_str)
