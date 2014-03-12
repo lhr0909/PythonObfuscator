@@ -31,6 +31,11 @@ class PyObfSpec(unittest.TestCase):
         obf = pyobf.Obfuscator(string)
         self.assertEqual(base64.b64decode(obf.simple()), "2 1():\n\t0 '3'")
 
+    def test_number_swap(self):
+        string = "for i in xrange(0, 10):\n    print i"
+        obf = pyobf.Obfuscator(string)
+        self.assertEqual(base64.b64decode(obf.simple()), "2 4 3 6(0, 5):\n\t1 4")
+
     def test_build_simple(self):
         string = "print 'hello world'"
         obf = pyobf.Obfuscator(string)
@@ -59,4 +64,3 @@ if __name__ == "__main__":
         sys.exit(0)
     else:
         sys.exit(1)
-

@@ -70,11 +70,11 @@ class Obfuscator:
                 continue
 
             if wordLen > x and i != x and x != last_x and i != last_i and self.word_list[i].lower() != self.word_list[x].lower():
-                print x, i, self.word_list[x], self.word_list[i]
+                #print x, i, self.word_list[x], self.word_list[i]
                 temp = self.word_list[i]
                 self.word_list[i] = self.word_list[x]
                 self.word_list[x] = temp
-                print x, i, self.word_list[x], self.word_list[i]
+                #print x, i, self.word_list[x], self.word_list[i]
                 last_x = x
                 last_i = i
                 i = 0
