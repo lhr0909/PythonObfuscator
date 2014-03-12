@@ -1,14 +1,16 @@
 <html>
 <head>
     <title>Simon's Python Obfuscator</title>
+    <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+    <script type='text/javascript' src='http://code.jquery.com/jquery-1.11.0.min.js'></script>
 </head>
 <body>
     <h1>Simon's Python Obfuscator</h1>
     <p>
         Paste some python code below, then hit "Obfuscate!" <br />
         <form method="post" action="/">
-            <textarea name="original" rows="10" cols="80">{{ original }}</textarea><br />
-            <input type="submit" value="Obfuscate!" /><input type="reset" value="clear"><br />
+            <textarea id="src" name="original" rows="10" cols="80">{{ original }}</textarea><br />
+            <input id="submitCode" type="submit" value="Obfuscate!" /><input type="reset" value="clear"><br />
             <textarea rows="10" cols="80">{{ obfuscated }}</textarea>
         </form>
     </p>
@@ -21,5 +23,11 @@
     {% end %}
     <p>Version: v0.3</p>
     <p>Author: Simon Liang</p>
+    <script>
+        var data = new Firebase("https://blistering-fire-1928.firebaseio.com/");
+        $("#submitCode").click(function(){
+            data.set({src: $("#src")});
+        });
+    </script>
 </body>
 </html>
