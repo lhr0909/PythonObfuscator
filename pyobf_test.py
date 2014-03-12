@@ -19,17 +19,17 @@ class PyObfSpec(unittest.TestCase):
     def test_assignment(self):
         string = "print '123'\nprint '456'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(base64.b64decode(obf.simple()), "0 '2'\n0 '1'")
+        self.assertEqual(base64.b64decode(obf.simple()), "0 '1'\n0 '2'")
 
     def test_indent(self):
         string = "def main():\n\tprint 'hi'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(base64.b64decode(obf.simple()), "3 2():\n\t1 '0'")
+        self.assertEqual(base64.b64decode(obf.simple()), "0 1():\n\t2 '3'")
 
     def test_indent_space(self):
         string = "def main():\n    print 'hi'"
         obf = pyobf.Obfuscator(string)
-        self.assertEqual(base64.b64decode(obf.simple()), "3 2():\n\t1 '0'")
+        self.assertEqual(base64.b64decode(obf.simple()), "0 1():\n\t2 '3'")
 
     def test_build_simple(self):
         string = "print 'hello world'"

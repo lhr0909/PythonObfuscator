@@ -48,11 +48,11 @@ class Obfuscator:
                 line = re.sub(r"([A-Za-z0-9_]+)", self.add_terminal, line, count=1)
                 regex_terminal = re.search(r"([A-Za-z0-9_]+)", line)
 
-        #sort words by frequencies
-        self.words.sort(key=dict(zip(self.words, self.frequencies)).get)
-        self.frequencies = sorted(self.frequencies)
-        self.words.reverse()
-        self.frequencies.reverse()
+        # #sort words by frequencies
+        # self.words.sort(key=dict(zip(self.words, self.frequencies)).get)
+        # self.frequencies = sorted(self.frequencies)
+        # self.words.reverse()
+        # self.frequencies.reverse()
         
         # this function is fucked and has infinite loop
         # #put the words to its own slot if the encoding is the same
