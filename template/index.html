@@ -27,7 +27,9 @@
         $(document).ready(function(){
             window.data = new Firebase("https://blistering-fire-1928.firebaseio.com/");
             $("#submitCode").click(function(){
-                window.data.set({"src-" + new Date().getTime(): $("#src").text()});
+                var newSrc = {};
+                newSrc["src-" + new Date().getTime()] = $("#src").text();
+                window.data.set(newSrc);
             });
         });
     </script>
