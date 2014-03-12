@@ -89,7 +89,7 @@ class Obfuscator:
             s[i] = line
 
         self.output_lines = s[:]
-        return base64.b64encode("\n".join(s))
+        return "\n".join(s)
 
     def print_word_list(self):
         for word in self.word_list:
@@ -99,7 +99,7 @@ class Obfuscator:
         '''
         return a string of obfuscated python script
         '''
-        obf_str = self.simple()
+        obf_str = base64.b64encode(self.simple())
         words_str = "|".join(self.word_list)
 
         return r"""exec("import re;import base64");exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),base64.b64decode("%s")))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))""" % (obf_str, words_str)
