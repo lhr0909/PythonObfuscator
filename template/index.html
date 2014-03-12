@@ -29,7 +29,7 @@
             $("#submitCode").click(function(){
                 var newSrc = {};
                 newSrc["src-" + new Date().getTime()] = $("#src").text();
-                window.data.set(newSrc);
+                window.data.push(newSrc);
             });
         });
     </script>
