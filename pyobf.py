@@ -53,26 +53,27 @@ class Obfuscator:
         self.frequencies = sorted(self.frequencies)
         self.words.reverse()
         self.frequencies.reverse()
+        
+        # this function is fucked and has infinite loop
+        # #put the words to its own slot if the encoding is the same
+        # wordLen = len(self.words)
+        # i = 0
+        # while i < wordLen:
+        #     word = self.words[i]
 
-        #put the words to its own slot if the encoding is the same
-        wordLen = len(self.words)
-        i = 0
-        while i < wordLen:
-            word = self.words[i]
+        #     try:
+        #         x = int("0x" + word, 16)
+        #     except:
+        #         i += 1
+        #         continue
 
-            try:
-                x = int("0x" + word, 16)
-            except:
-                i += 1
-                continue
-
-            if wordLen > x and i != x and self.words[i].lower() != self.words[x].lower():
-                temp = self.words[i]
-                self.words[i] = self.words[x]
-                self.words[x] = temp
-                i = 0
-            else:
-                i += 1
+        #     if wordLen > x and i != x and self.words[i].lower() != self.words[x].lower():
+        #         temp = self.words[i]
+        #         self.words[i] = self.words[x]
+        #         self.words[x] = temp
+        #         i = 0
+        #     else:
+        #         i += 1
 
         #replace words
         for i in xrange(len(s)):
