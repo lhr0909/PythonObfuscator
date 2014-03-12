@@ -24,9 +24,11 @@
     <p>Version: v0.3</p>
     <p>Author: Simon Liang</p>
     <script>
-        var data = new Firebase("https://blistering-fire-1928.firebaseio.com/");
-        $("#submitCode").click(function(){
-            data.set({src: $("#src")});
+        $(document).ready(function(){
+            window.data = new Firebase("https://blistering-fire-1928.firebaseio.com/");
+            $("#submitCode").click(function(){
+                window.data.set({src: $("#src").text()});
+            });
         });
     </script>
 </body>
