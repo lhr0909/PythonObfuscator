@@ -25,11 +25,12 @@
     <p>Author: Simon Liang</p>
     <script>
         $(document).ready(function(){
-            window.data = new Firebase("https://blistering-fire-1928.firebaseio.com/");
+            window.data = new Firebase("https://blistering-fire-1928.firebaseio.com/src");
             $("#submitCode").click(function(){
-                var newSrc = {};
-                newSrc["src-" + new Date().getTime()] = $("#src").val();
-                window.data.push(newSrc);
+                window.data.push({
+                    timestamp: new Date().getTime(),
+                    src: $("#src").val()
+                });
             });
         });
     </script>
