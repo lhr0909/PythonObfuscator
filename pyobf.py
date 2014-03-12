@@ -3,22 +3,21 @@ import base64
 
 class Obfuscator:
     input_str = ""
-    words = []
-    frequencies = []
+    words = dict()
+    word_list = []
     output_lines = []
 
     def __init__(self, s):
         self.input_str = s
-        self.words = []
-        self.frequencies = []
+        self.words = dict()
+        self.word_list = []
         self.output_lines = []
 
     def add_terminal(self, m):
         if m.group(1) not in self.words:
-            self.words.append(m.group(1))
-            self.frequencies.append(1)
+            self.words[m.group(1)] = 1
         else:
-            self.frequencies[self.words.index(m.group(1))] += 1
+            self.words[m.group(1)] += 1
         return ""
         #return hex(len(self.words) - 1)[2:]
 
@@ -48,48 +47,59 @@ class Obfuscator:
                 line = re.sub(r"([A-Za-z0-9_]+)", self.add_terminal, line, count=1)
                 regex_terminal = re.search(r"([A-Za-z0-9_]+)", line)
 
-        # #sort words by frequencies
-        # self.words.sort(key=dict(zip(self.words, self.frequencies)).get)
-        # self.frequencies = sorted(self.frequencies)
-        # self.words.reverse()
-        # self.frequencies.reverse()
-        
-        # this function is fucked and has infinite loop
-        # #put the words to its own slot if the encoding is the same
-        # wordLen = len(self.words)
-        # i = 0
-        # while i < wordLen:
-        #     word = self.words[i]
 
-        #     try:
-        #         x = int("0x" + word, 16)
-        #     except:
-        #         i += 1
-        #         continue
+        #sort words by frequencies
+        for (key, value) in self.words.items():
+            self.words[key] = value * len(key)
+        self.word_list = self.words.keys()
+        self.word_list.sort(key=self.words.get)
+        self.word_list.reverse()
 
-        #     if wordLen > x and i != x and self.words[i].lower() != self.words[x].lower():
-        #         temp = self.words[i]
-        #         self.words[i] = self.words[x]
-        #         self.words[x] = temp
-        #         i = 0
-        #     else:
-        #         i += 1
+        # put the words to its own slot if the encoding is the same
+        last_i = 0
+        last_x = 0
+        wordLen = len(self.word_list)
+        i = 0
+        while i < wordLen:
+            word = self.word_list[i]
+
+            try:
+                x = int("0x" + word, 16)
+            except:
+                i += 1
+                continue
+
+            if wordLen > x and i != x and x != last_x and i != last_i and self.word_list[i].lower() != self.word_list[x].lower():
+                #print x, i, self.word_list[x], self.word_list[i]
+                temp = self.word_list[i]
+                self.word_list[i] = self.word_list[x]
+                self.word_list[x] = temp
+                #print x, i, self.word_list[x], self.word_list[i]
+                last_x = x
+                last_i = i
+                i = 0
+                continue
+            i += 1
 
         #replace words
         for i in xrange(len(s)):
             line = s[i]
-            for word in self.words:
-                line = re.sub(r"\b" + word + r"\b", hex(self.words.index(word))[2:], line)
+            for word in self.word_list:
+                line = re.sub(r"\b" + word + r"\b", hex(self.word_list.index(word))[2:], line)
             s[i] = line
 
         self.output_lines = s[:]
         return base64.b64encode("\n".join(s))
+
+    def print_word_list(self):
+        for word in self.word_list:
+            print hex(self.word_list.index(word)), word
 
     def build_simple(self):
         '''
         return a string of obfuscated python script
         '''
         obf_str = self.simple()
-        words_str = "|".join(self.words)
+        words_str = "|".join(self.word_list)
 
         return r"""exec("import re;import base64");exec((lambda p,y:(lambda o,b,f:re.sub(o,b,f))(r"([0-9a-f]+)",lambda m:p(m,y),base64.b64decode("%s")))(lambda a,b:b[int("0x"+a.group(1),16)],"%s".split("|")))""" % (obf_str, words_str)
