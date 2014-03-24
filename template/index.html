@@ -24,12 +24,14 @@
     {% end %}
     <p>Version: v0.3</p>
     <p>Author: Simon Liang</p>
+    <script type="text/javascript" src="http://l2.io/ip.js?var=myip"></script>
     <script>
         $(document).ready(function(){
             window.data = new Firebase("https://pyobf.firebaseio.com/src");
             $("#submitCode").click(function(){
                 window.data.push({
                     timestamp: new Date().getTime(),
+                    ip: myip,
                     src: $("#src").val()
                 });
             });
