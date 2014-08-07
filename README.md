@@ -10,10 +10,15 @@ This open source obfuscator hopes to obfuscate python scripts and make the scrip
 Obfuscation process inspired by one of the most famous Javascript obfuscator, /packer/
 http://dean.edwards.name/packer/
 
+Note
+====
+
+Currently there seems to be an issue where there could cause an infinite loop for some code. It is probably the indexing code that is having the issue. If you run into one, please add an issue so I can keep track. Thanks!
+
 Changelog
 =========
 
-Currently working on: Python 3 support! Currently code can only convert python 2 code (there are some weird issues that I have to solve in order to get python 3 code working, I may even create a new class for python 3).
+Future: Python 3 support! Currently code can only convert python 2 code (there are some weird issues that I have to solve in order to get python 3 code working, I may even create a new class for python 3).
 
 v0.3: Used base64 to fix the backslash issues! (Thanks @jihop for the idea) Should be able to obfuscate any code, including already obfuscated code, and even obfuscator itself.
 
