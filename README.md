@@ -8,10 +8,14 @@ DEPRECATED
 
 This module is deprecated, you can try [this alternative](https://github.com/liftoff/pyminifier) if you are looking for an obfuscator. Cheers.
 
+Inspiration
+===========
+
 This open source obfuscator hopes to obfuscate python scripts and make the scripts unreadable / hard to decipher, since you can somehow retrieve the source code from de-compiling the Python bytecode.
 
-Obfuscation process inspired by one of the most famous Javascript obfuscator, /packer/
-http://dean.edwards.name/packer/
+Hacked together a semi-working version in a few hours, so it is rather immature, and some drinking was involved since I was in senior year of college and already landed a job :)
+
+Obfuscation process inspired by one of the most famous Javascript obfuscator, [/packer/](http://dean.edwards.name/packer/)
 
 Note
 ====
