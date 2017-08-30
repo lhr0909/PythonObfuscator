@@ -3,7 +3,10 @@ Simon's Python Obfuscator
 
 [![Build Status](https://travis-ci.org/lhr0909/PythonObfuscator.png?branch=master)](https://travis-ci.org/lhr0909/PythonObfuscator)
 
-Try the obfuscator directly at: http://pyobf.herokuapp.com
+DEPRECATED
+==========
+
+This module is deprecated, you can try [this alternative](https://github.com/liftoff/pyminifier) if you are looking for an obfuscator. Cheers.
 
 This open source obfuscator hopes to obfuscate python scripts and make the scripts unreadable / hard to decipher, since you can somehow retrieve the source code from de-compiling the Python bytecode.
 
